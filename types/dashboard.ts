@@ -99,7 +99,7 @@ export interface FormattedEvent {
   timestamp: string;
   badge?: {
     text: string;
-    variant: 'default' | 'success' | 'warning' | 'destructive';
+    variant: 'default' | 'destructive' | 'secondary' | 'outline';
   };
   data: Record<string, any>;
 }

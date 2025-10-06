@@ -60,7 +60,7 @@ export function formatEvent(activity: CallActivity): FormattedEvent {
         description: `MC #${data.mc_number} - ${data.carrier_name}`,
         badge: {
           text: 'Verified',
-          variant: 'success',
+          variant: 'default',
         },
       };
     }
@@ -68,7 +68,7 @@ export function formatEvent(activity: CallActivity): FormattedEvent {
     case 'MC_VERIFICATION_FAILED': {
       const data = activity.data as MCVerificationFailedData;
       // Backend sends 'error' field, but type definition has 'reason'
-      const errorMessage = (data as any).reason || (data as any).error || 'Carrier not valid';
+      const errorMessage = ('reason' in data ? data.reason : '') || ('error' in data ? (data as { error: string }).error : '') || 'Carrier not valid';
       return {
         ...baseEvent,
         title: 'Verification Failed',
@@ -119,7 +119,7 @@ export function formatEvent(activity: CallActivity): FormattedEvent {
         description: `No available loads ${searchTerms}`,
         badge: {
           text: 'No results',
-          variant: 'warning',
+          variant: 'secondary',
         },
       };
     }
@@ -132,7 +132,7 @@ export function formatEvent(activity: CallActivity): FormattedEvent {
         description: `Load ${data.load_id} accepted at ${formatCurrency(data.accepted_price)}`,
         badge: {
           text: 'Accepted',
-          variant: 'success',
+          variant: 'default',
         },
       };
     }
@@ -147,7 +147,7 @@ export function formatEvent(activity: CallActivity): FormattedEvent {
           description: `Load ${data.load_id} accepted at ${formatCurrency(data.carrier_offer)} - ${data.reason}`,
           badge: {
             text: 'Accepted',
-            variant: 'success',
+            variant: 'default',
           },
         };
       }
@@ -159,7 +159,7 @@ export function formatEvent(activity: CallActivity): FormattedEvent {
           description: `Carrier offered ${formatCurrency(data.carrier_offer)}, countered with ${formatCurrency(data.counter_offer || 0)} - ${data.reason}`,
           badge: {
             text: 'Counter',
-            variant: 'warning',
+            variant: 'secondary',
           },
         };
       }
@@ -195,7 +195,7 @@ export function formatEvent(activity: CallActivity): FormattedEvent {
         badge: data.outcome
           ? {
               text: data.outcome,
-              variant: data.outcome === 'BOOKED' ? 'success' : 'default',
+              variant: data.outcome === 'BOOKED' ? 'default' : 'default',
             }
           : undefined,
       };

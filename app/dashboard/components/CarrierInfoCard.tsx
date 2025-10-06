@@ -95,7 +95,7 @@ export function CarrierInfoCard({ activities, isLoading }: CarrierInfoCardProps)
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>Carrier Information</CardTitle>
-            <Badge variant="success">Verified</Badge>
+            <Badge variant="default">Verified</Badge>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">

@@ -1,4 +1,4 @@
-# HappyRobot Dashboard
+# Acme Logistics Dashboard
 
 Real-time monitoring dashboard for HappyRobot carrier call activity. Built with Next.js 15, TypeScript, and Tailwind CSS.
 
@@ -39,7 +39,7 @@ Real-time monitoring dashboard for HappyRobot carrier call activity. Built with 
 
 ### Prerequisites
 - Node.js 20+
-- Backend API running on `http://localhost:3001` (see [happyrobot-challenge](https://github.com/0xalv/happyrobot-challenge))
+- Backend API running on `https://happyrobot-challenge-production.up.railway.app` (see [happyrobot-challenge](https://github.com/0xalv/happyrobot-challenge))
 
 ### Installation
 
@@ -47,11 +47,78 @@ Real-time monitoring dashboard for HappyRobot carrier call activity. Built with 
 # Install dependencies
 npm install
 
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your:
+#   - NEXT_PUBLIC_BACKEND_URL (default: https://happyrobot-challenge-production.up.railway.app)
+#   - BACKEND_API_KEY (API key for backend authentication)
+
 # Start development server
 npm run dev
 ```
 
-Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) in your browser.
+Open [https://happyrobot-dashboard-acme.vercel.app/dashboard](https://happyrobot-dashboard-acme.vercel.app/dashboard) in your browser.
+
+## Vercel Deployment (Production)
+
+Deploy the dashboard to Vercel's edge network for global performance.
+
+### Prerequisites
+- Vercel account (sign up at https://vercel.com)
+- GitHub repository with your code
+- Backend API deployed and accessible (see backend README for Railway deployment)
+
+### Deployment Steps
+
+**1. Import Project to Vercel**
+- Go to https://vercel.com/new
+- Select "Import Git Repository"
+- Connect your GitHub account and select `happyrobot-dashboard` repository
+- Vercel will automatically detect Next.js configuration
+
+**2. Configure Environment Variables**
+- During import, add environment variables:
+  - `NEXT_PUBLIC_BACKEND_URL`: Your Railway backend URL (e.g., `https://happyrobot-challenge-production.up.railway.app`)
+  - `BACKEND_API_KEY`: Your backend API key (same as the `API_KEY` from backend deployment)
+- Click "Deploy"
+
+**3. Access Your Dashboard**
+- Vercel will build and deploy your application
+- Your dashboard will be available at: `https://your-project.vercel.app/dashboard`
+- Vercel automatically generates a production URL
+
+### Accessing Your Deployment
+
+**Production Dashboard:** Your generated Vercel domain (e.g., `https://happyrobot-dashboard-acme.vercel.app/dashboard`)
+
+**Custom Domain (Optional):**
+- Go to project settings > Domains
+- Add your custom domain and follow DNS configuration instructions
+
+### Environment Variables Reference
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_BACKEND_URL` | Backend API base URL (must include protocol) | `https://your-api.up.railway.app` |
+| `BACKEND_API_KEY` | Backend API authentication key (server-side only, not exposed to browser) | `your_api_key_here` |
+
+Note: Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser.
+
+### Troubleshooting
+
+**API Connection Issues:**
+- Verify `NEXT_PUBLIC_BACKEND_URL` is set correctly (check for trailing slashes)
+- Ensure backend API is accessible and returns CORS headers
+- Check browser console for CORS errors
+
+**Build Failures:**
+- Review Vercel build logs for TypeScript errors
+- Ensure all dependencies are in `package.json`
+- Verify Next.js version compatibility
+
+**Environment Variable Updates:**
+- Update variables in Vercel project settings > Environment Variables
+- Redeploy the project after changes (Vercel > Deployments > Redeploy)
 
 ### Available Scripts
 
@@ -59,10 +126,6 @@ Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) in your 
 - `npm run build` - Build production bundle
 - `npm run start` - Run production server
 - `npm run lint` - Run ESLint
-
-## 🔧 Configuration
-
-The dashboard connects to the backend API at `http://localhost:3001`. To change the API URL, update the fetch calls in the dashboard components.
 
 ## 🎨 UI Components
 

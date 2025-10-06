@@ -47,7 +47,7 @@ export function SessionSelector({ selectedRunId, onRunIdChange, onNewSessionDete
 
   const fetchSessions = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/dashboard/sessions');
+      const response = await fetch('/api/sessions');
       if (!response.ok) {
         throw new Error('Failed to fetch sessions');
       }
@@ -58,7 +58,7 @@ export function SessionSelector({ selectedRunId, onRunIdChange, onNewSessionDete
         setSessions(newSessions);
 
         // Detect new sessions
-        const currentSessionIds = new Set(newSessions.map((s: Session) => s.run_id));
+        const currentSessionIds = new Set<string>(newSessions.map((s: Session) => s.run_id));
         const newSessionIds = Array.from(currentSessionIds).filter(id => !prevSessionIds.has(id));
 
         // If we found a new live session, notify parent

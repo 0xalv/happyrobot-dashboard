@@ -1,27 +1,16 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const run_id = searchParams.get('run_id');
-    const limit = searchParams.get('limit') || '50';
-
-    // Build backend URL with query params
-    const backendUrl = new URL(`${BACKEND_URL}/api/dashboard/activity`);
-    if (run_id) {
-      backendUrl.searchParams.set('run_id', run_id);
-    }
-    backendUrl.searchParams.set('limit', limit);
-
     // Fetch from backend with API key authentication
     const apiKey = process.env.BACKEND_API_KEY;
     if (!apiKey) {
       throw new Error('BACKEND_API_KEY is not configured');
     }
 
-    const response = await fetch(backendUrl.toString(), {
+    const response = await fetch(`${BACKEND_URL}/api/dashboard/sessions`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -38,11 +27,11 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error fetching activity:', error);
+    console.error('Error fetching sessions:', error);
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to fetch activity data',
+        error: 'Failed to fetch sessions data',
         message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
