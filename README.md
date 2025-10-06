@@ -6,12 +6,11 @@ Real-time monitoring dashboard for HappyRobot carrier call activity. Built with 
 
 - **Real-time Activity Feed**: Live updates every 2 seconds showing call events
 - **Carrier Information Panel**: Display verified carrier details from FMCSA
-- **Load Details**: Show matched load information with full specifications
 - **Negotiation Tracking**: Monitor negotiation rounds and decisions in real-time
 - **Session Management**: Track multiple call sessions with `run_id`
 - **Event Types**:
   - MC Verification (Success/Failed)
-  - Load Search Results
+  - Load Search Results (displayed in activity feed)
   - Negotiation Rounds (Accept/Counter/Transfer)
   - Call Ended Summary
 
@@ -25,9 +24,9 @@ Real-time monitoring dashboard for HappyRobot carrier call activity. Built with 
 │   │   │   ├── ActivityFeed.tsx      # Real-time event timeline
 │   │   │   ├── ActivityItem.tsx      # Individual event rendering
 │   │   │   ├── CarrierInfoCard.tsx   # Carrier details panel
-│   │   │   └── LoadDetailsCard.tsx   # Load information panel
+│   │   │   └── SessionSelector.tsx   # Session selection dropdown
 │   │   └── page.tsx                   # Dashboard main page
-│   └── api/                           # API route handlers (if needed)
+│   └── api/                           # API route handlers
 ├── lib/
 │   └── formatters.ts                  # Event formatting utilities
 ├── types/
@@ -136,12 +135,12 @@ Built with [shadcn/ui](https://ui.shadcn.com/) components:
 
 ## 📊 How It Works
 
-1. **Session Selection**: Choose "Wait Room" or enter a specific `run_id`
-2. **Polling**: Dashboard polls `/api/activity/:run_id` every 2 seconds
+1. **Session Selection**: Choose "Wait Room" or select a specific `run_id`
+2. **Polling**: Dashboard polls `/api/dashboard/activity?run_id=` every 2 seconds
 3. **Event Display**: New events appear in the Activity Feed in real-time
 4. **Auto-scroll**: Feed automatically scrolls to show latest events
 5. **Carrier Panel**: Updates when MC verification succeeds
-6. **Load Panel**: Shows when load is found and selected
+6. **Load Information**: Displayed inline within activity feed events
 
 ## 🔗 Related Projects
 
