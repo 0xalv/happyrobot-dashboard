@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HappyRobot Dashboard
 
-## Getting Started
+Real-time monitoring dashboard for HappyRobot carrier call activity. Built with Next.js 15, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## 🌟 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Real-time Activity Feed**: Live updates every 2 seconds showing call events
+- **Carrier Information Panel**: Display verified carrier details from FMCSA
+- **Load Details**: Show matched load information with full specifications
+- **Negotiation Tracking**: Monitor negotiation rounds and decisions in real-time
+- **Session Management**: Track multiple call sessions with `run_id`
+- **Event Types**:
+  - MC Verification (Success/Failed)
+  - Load Search Results
+  - Negotiation Rounds (Accept/Counter/Transfer)
+  - Call Ended Summary
+
+## 📁 Project Structure
+
+```
+/
+├── app/
+│   ├── dashboard/
+│   │   ├── components/
+│   │   │   ├── ActivityFeed.tsx      # Real-time event timeline
+│   │   │   ├── ActivityItem.tsx      # Individual event rendering
+│   │   │   ├── CarrierInfoCard.tsx   # Carrier details panel
+│   │   │   └── LoadDetailsCard.tsx   # Load information panel
+│   │   └── page.tsx                   # Dashboard main page
+│   └── api/                           # API route handlers (if needed)
+├── lib/
+│   └── formatters.ts                  # Event formatting utilities
+├── types/
+│   └── dashboard.ts                   # TypeScript type definitions
+└── components/ui/                     # shadcn/ui components
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Quick Start
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
+- Node.js 20+
+- Backend API running on `http://localhost:3001` (see [happyrobot-challenge](https://github.com/0xalv/happyrobot-challenge))
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Installation
 
-## Learn More
+```bash
+# Install dependencies
+npm install
 
-To learn more about Next.js, take a look at the following resources:
+# Start development server
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) in your browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Available Scripts
 
-## Deploy on Vercel
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build production bundle
+- `npm run start` - Run production server
+- `npm run lint` - Run ESLint
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔧 Configuration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The dashboard connects to the backend API at `http://localhost:3001`. To change the API URL, update the fetch calls in the dashboard components.
+
+## 🎨 UI Components
+
+Built with [shadcn/ui](https://ui.shadcn.com/) components:
+- Card, Badge, Button
+- ScrollArea, Skeleton
+- Custom styled components with Tailwind CSS
+
+## 📊 How It Works
+
+1. **Session Selection**: Choose "Wait Room" or enter a specific `run_id`
+2. **Polling**: Dashboard polls `/api/activity/:run_id` every 2 seconds
+3. **Event Display**: New events appear in the Activity Feed in real-time
+4. **Auto-scroll**: Feed automatically scrolls to show latest events
+5. **Carrier Panel**: Updates when MC verification succeeds
+6. **Load Panel**: Shows when load is found and selected
+
+## 🔗 Related Projects
+
+- **Backend API**: [happyrobot-challenge](https://github.com/0xalv/happyrobot-challenge) - Express.js backend with Prisma + PostgreSQL
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Date Formatting**: date-fns
+- **Icons**: Lucide React
+
+## 📝 License
+
+MIT
